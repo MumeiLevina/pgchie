@@ -11,8 +11,10 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="music.css">
   <script defer src="config.js"></script>
   <script defer src="script.js"></script>
+  <script defer src="music.js"></script>
 </head>
 <body>
   <a href="#main" class="skip-link">Chuyển đến nội dung chính</a>
@@ -47,7 +49,7 @@
       </div>
     </section>
 
-    <div class="marquee-band" aria-hidden="true"><div><!-- Thêm nội dung duy băng của bạn tại đây. --></div></div>
+    <div class="marquee-band"><div><span lang="ja">魂さえも自ら堕ちることを望むほど、甘美な罪がある</span><span lang="ja" aria-hidden="true">魂さえも自ら堕ちることを望むほど、甘美な罪がある</span></div></div>
 
     <section class="section container widgets-section" id="widgets" aria-label="Góc nhỏ của mình">
       <div class="dashboard-grid">
@@ -78,8 +80,9 @@
 
         <article class="widget music-widget" aria-labelledby="music-title">
           <div class="widget-label"><span class="label-glyph">♫</span> on repeat lately</div>
-          <div class="music-main"><div class="vinyl" aria-hidden="true"><span class="vinyl-center">♡</span></div><div class="music-info"><div class="music-kicker">MY SOUNDTRACK</div><h3 id="music-title">Obito & my<br>favorite tunes.</h3><p id="trackInfo">Âm nhạc cho những ngày mơ mộng.</p></div></div>
-          <div class="music-bottom"><div class="music-controls"><button id="prevTrack" type="button" class="icon-btn" aria-label="Bài trước" disabled>⏮</button><button id="playTrack" type="button" class="icon-btn play-btn" aria-label="Phát nhạc" disabled>▶</button><button id="nextTrack" type="button" class="icon-btn" aria-label="Bài tiếp theo" disabled>⏭</button></div><a id="artistLink" class="external-link" href="https://open.spotify.com/search/Obito" target="_blank" rel="noopener noreferrer">listen on spotify ↗</a></div>
+          <div class="music-main"><div class="vinyl" aria-hidden="true"><span class="vinyl-center"><img data-cover src="assets/music-cover.svg" alt=""></span></div><div class="music-info"><div class="music-kicker">MY SOUNDTRACK</div><h3 id="music-title" data-track-title>A little quiet.</h3><p id="trackInfo" data-track-artist>Chie's little soundtrack</p></div></div>
+          <div class="music-bottom"><div class="music-controls"><button id="prevTrack" data-music="previous" type="button" class="icon-btn" aria-label="Bài trước" disabled>⏮</button><button id="playTrack" data-music="play" type="button" class="icon-btn play-btn" aria-label="Phát nhạc" disabled>▶</button><button id="nextTrack" data-music="next" type="button" class="icon-btn" aria-label="Bài tiếp theo" disabled>⏭</button></div><button type="button" class="music-expand" data-music="expand" aria-haspopup="dialog">open player ↗</button></div>
+          <div class="music-footnote"><span id="musicStatus" role="status" aria-live="polite">Chưa có bài hát.</span><a id="artistLink" class="external-link" href="https://open.spotify.com/search/Obito" target="_blank" rel="noopener noreferrer">spotify ↗</a></div>
           <audio id="audioPlayer" preload="none"></audio>
         </article>
 
@@ -105,7 +108,7 @@
         <div class="letter-form-panel"><span class="letter-stamp">✉ &nbsp; ANONYMOUS MAILBOX</span><h3>dear Chie, <span>♡</span></h3><p>Gửi một lời nhắn nhỏ, một câu chuyện hay chỉ đơn giản là một lời chào.</p>
           <form id="letterForm" novalidate>
             <label class="sr-only" for="letterText">Tin nhắn ẩn danh</label>
-            <textarea id="letterText" name="message" maxlength="500" rows="5" placeholder="write something lovely here..." required></textarea>
+            <textarea id="letterText" name="message" maxlength="500" rows="5" placeholder="write something lovely here..." aria-describedby="letterCount letterStatus" required></textarea>
             <input type="text" name="_gotcha" id="honeypot" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
             <div class="form-bottom"><span id="letterCount">0 / 500</span><button id="sendLetter" class="btn btn-primary" type="submit">send my letter <span aria-hidden="true">↗</span></button></div>
           </form>
@@ -118,5 +121,23 @@
 
   <footer class="site-footer container"><span>✿ <strong id="footerName">chie</strong>.verse</span><span>made with love, stardust & pastel blue ♡</span><a href="#home">back to top ↑</a></footer>
   <dialog id="photoDialog" class="photo-dialog" aria-label="Xem ảnh cosplay"><form method="dialog"><button class="dialog-close" aria-label="Đóng ảnh" type="submit">×</button></form><img id="dialogImage" alt=""><p id="dialogCaption"></p></dialog>
+  <dialog id="musicDialog" class="music-dialog" aria-labelledby="playerHeading">
+    <div class="player-top"><span id="playerHeading">✦ &nbsp; CHIE'S LISTENING ROOM</span><div class="player-window-actions"><button type="button" class="icon-btn" data-music="minimize" aria-label="Thu nhỏ trình phát" title="Thu nhỏ trình phát">−</button><button type="button" class="icon-btn" data-music="close" aria-label="Đóng trình phát" autofocus>×</button></div></div>
+    <div class="player-layout">
+      <div class="player-deck">
+        <div class="record-stage" aria-hidden="true"><span class="record-star">✧</span><div class="vinyl vinyl-large"><span class="vinyl-center"><img data-cover src="assets/music-cover.svg" alt=""></span></div><span class="record-note">a soft place to land ♡</span></div>
+        <canvas id="musicVisualizer" width="600" height="80" aria-hidden="true" hidden></canvas>
+        <div class="player-track"><span class="music-kicker">A LITTLE MUSIC, A LITTLE DAYDREAM</span><h2 data-track-title>A little quiet.</h2><p data-track-artist>Chie's little soundtrack</p></div>
+        <p id="playerStatus" class="player-status">Thêm bài hát để bắt đầu góc nhạc nhỏ.</p>
+        <label class="sr-only" for="musicSeek">Vị trí phát (giây)</label><input id="musicSeek" class="music-range" type="range" min="0" max="0" value="0" step="0.1" disabled>
+        <div class="player-times"><span id="musicCurrent">0:00</span><span id="musicDuration">—:—</span></div>
+        <div class="player-transport"><button type="button" class="icon-btn mode-btn" data-music="shuffle" aria-label="Phát ngẫu nhiên" aria-pressed="false">⤨</button><button type="button" class="icon-btn" data-music="previous" aria-label="Bài trước" disabled>⏮</button><button type="button" class="icon-btn play-btn" data-music="play" aria-label="Phát nhạc" disabled>▶</button><button type="button" class="icon-btn" data-music="next" aria-label="Bài tiếp theo" disabled>⏭</button><button type="button" class="icon-btn mode-btn" data-music="repeat" aria-label="Lặp lại: tất cả" aria-pressed="true">↻</button></div>
+        <div class="player-volume"><button type="button" class="icon-btn" data-music="mute" aria-label="Tắt tiếng" aria-pressed="false">♪</button><label for="musicVolume">Âm lượng</label><input id="musicVolume" class="music-range" type="range" min="0" max="1" step="0.01" value="0.65"><output id="volumeValue" for="musicVolume">65%</output></div>
+      </div>
+      <section class="player-queue" aria-labelledby="queueHeading"><div class="queue-heading"><h3 id="queueHeading">little mixtape <span>♡</span></h3><span id="queueCount">0 bài</span></div><p id="playlistEmpty" class="playlist-empty">Góc nhạc đang chờ những giai điệu đầu tiên.<br>Hẹn bạn một chút nhé ✧</p><ol id="musicPlaylist" class="music-playlist"></ol></section>
+    </div>
+    <div class="player-bottom-note">just you, the music & a tiny universe <span aria-hidden="true">✦</span></div>
+  </dialog>
+  <aside id="musicMini" class="music-mini" aria-label="Trình điều khiển nhạc thu nhỏ" hidden><img data-cover src="assets/music-cover.svg" alt="" width="44" height="44"><div class="mini-track"><strong data-track-title></strong><span data-track-artist></span></div><button type="button" class="icon-btn play-btn" data-music="play" aria-label="Phát nhạc">▶</button><button type="button" class="icon-btn" data-music="next" aria-label="Bài tiếp theo">⏭</button><button type="button" class="icon-btn" data-music="expand" aria-label="Mở trình phát" aria-haspopup="dialog">↗</button><button type="button" class="icon-btn mini-dismiss" data-music="dismiss" aria-label="Ẩn trình phát thu nhỏ">×</button></aside>
 </body>
 </html>
