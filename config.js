@@ -14,10 +14,10 @@ window.SITE_CONFIG = {
   clockGifUrl: "",     // Tuỳ chọn: GIF nền ở ô đồng hồ
   discordUserId: "",   // Discord user ID, cần tham gia Lanyard (lanyard.rest)
   socials: {
-    facebook: "",     // https://www.facebook.com/...
-    instagram: "",    // https://www.instagram.com/...
-    tiktok: "",       // https://www.tiktok.com/@...
-    discord: ""       // https://discord.gg/...
+    facebook: "https://www.facebook.com/lietobiedasick",
+    instagram: "https://www.instagram.com/yzniebeiu",
+    tiktok: "https://www.tiktok.com/@lietobiedasick?lang=vi-VN",
+    discord: "https://discord.com/invite/MB4xEVG6"
   },
   artistUrl: "https://open.spotify.com/search/Obito",
   // Chỉ dùng link bài nhạc bạn có quyền phát trên website. Không tải nhạc bản quyền trái phép.
