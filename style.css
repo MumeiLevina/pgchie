@@ -37,8 +37,8 @@
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 
-/* Keep Marin centered in the portrait frame. */
-.picture-frame>#heroGif{object-position:76% center}
+/* Keep the angel portrait and halo visible in the CHIE CAM frame. */
+.picture-frame>#heroGif{object-position:50% 25%}
 
 /* A fixed GIF keeps the animated ocean visible behind every section. */
 .background-decor{position:fixed;z-index:0;inset:0;overflow:hidden;pointer-events:none;background:#dff6f5}

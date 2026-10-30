@@ -9,7 +9,7 @@ window.SITE_CONFIG = {
   brandName: "chie",   // Chữ nhỏ trên thanh điều hướng
   bio: "Xin chào, mình là Chie ♡ Đây là góc nhỏ mình dành cho cosplay, những khoảnh khắc đáng yêu và âm nhạc mình yêu thích.",
   backgroundGifUrl: "assets/ocean-dream.gif", // GIF nền toàn website
-  heroGifUrl: "",      // Để trống để dùng ảnh cosplay Marin trong khung đầu trang
+  heroGifUrl: "assets/15a505ba-0847-44d0-8807-abe3e0603446.jpg", // Ảnh đại diện lớn trong khung CHIE CAM
   moodGifUrl: "",      // Ví dụ: "https://your-domain.com/mood.gif"
   clockGifUrl: "",     // Tuỳ chọn: GIF nền ở ô đồng hồ
   discordUserId: "",   // Discord user ID, cần tham gia Lanyard (lanyard.rest)
