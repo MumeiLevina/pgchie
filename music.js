@@ -272,9 +272,14 @@
   dialog.addEventListener('close', () => {
     document.body.classList.remove('music-dialog-open');
     updateMini();
-    if (miniForced && !$('musicMini').hidden) $('musicMini').querySelector('[data-music="expand"]').focus({ preventScroll: true });
-    else if (opener?.isConnected && !opener.closest('[hidden]')) opener.focus();
-    else document.querySelector('.music-expand').focus();
+    // The native close event is queued: preserve focus if the visitor has already
+    // moved to a form or another control before this handler runs.
+    const active = document.activeElement;
+    if (active === document.body || dialog.contains(active) || active === opener) {
+      if (miniForced && !$('musicMini').hidden) $('musicMini').querySelector('[data-music="expand"]').focus({ preventScroll: true });
+      else if (opener?.isConnected && !opener.closest('[hidden]')) opener.focus();
+      else document.querySelector('.music-expand').focus();
+    }
     visualize();
   });
   $('musicSeek').addEventListener('input', (event) => {

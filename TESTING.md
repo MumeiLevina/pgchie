@@ -2,6 +2,13 @@
 
 ## Follow-up: local music and minimize button
 
+Pre-merge CI caught two follow-up regressions after the ribbon/social updates:
+Japanese text increased the ribbon height by about one CSS pixel on Linux, and
+the queued dialog close handler could steal focus after a visitor moved into the
+mailbox. The ribbon now retains its original 44px height; focus restoration leaves
+an already-focused outside control alone. Existing geometry and keyboard tests
+cover both cases.
+
 Added the five owner-supplied MP3 paths to `config.js` and a “−” button beside the
 expanded player's close button. Minimizing shows the shared mini controller even
 when the dashboard card is visible, preserves playback and moves keyboard focus
