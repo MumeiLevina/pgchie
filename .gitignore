@@ -1,0 +1,8 @@
+# Original nested folder retained as a local backup. Edit the root files.
+/chie-little-universe/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#dff6f5">
+  <meta name="description" content="Chie's little universe — cosplay, music & pastel blue daydreams.">
+  <title>Chie's Little Universe ✦</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Nunito:wght@400;500;600;700;800;900&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="config.js"></script>
+  <script defer src="script.js"></script>
+</head>
+<body>
+  <a href="#main" class="skip-link">Chuyển đến nội dung chính</a>
+  <div class="background-decor" aria-hidden="true">
+    <img id="siteBackgroundGif" src="assets/ocean-dream.gif" alt="" fetchpriority="high">
+  </div>
+  <div class="star-cloud" aria-hidden="true"><span>✦</span><span>✧</span><span>✳</span><span>✦</span><span>✧</span></div>
+
+  <main id="main">
+    <section class="hero container" id="home" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> WELCOME TO MY LITTLE CORNER <span>✳</span></div>
+        <div class="tiny-deco" aria-hidden="true"><span>✧</span> &nbsp; <span>♪</span> &nbsp; <span>✦</span></div>
+        <h1 id="hero-title">a little bit of <span class="hero-name-group"><span class="name-script" id="heroName">Chie</span><span class="hero-dot">.</span></span><span class="hero-subtitle">a whole universe of dreams</span></h1>
+        <p class="hero-description" id="heroBio">Xin chào, mình là Chie ♡ Đây là góc nhỏ mình dành cho cosplay, những khoảnh khắc đáng yêu và âm nhạc mình yêu thích.</p>
+        <div class="hero-actions">
+          <a href="#widgets" class="btn btn-primary">explore my world <span aria-hidden="true">↗</span></a>
+          <a href="#cosplay" class="btn btn-quiet">see my cosplays <span aria-hidden="true">✦</span></a>
+        </div>
+      </div>
+      <div class="hero-art">
+        <span class="art-doodle art-doodle-one" aria-hidden="true">✧</span>
+        <span class="art-doodle art-doodle-two" aria-hidden="true">✦</span>
+        <div class="picture-frame">
+          <div class="frame-top"><span>♡ CHIE CAM</span><span>● ● ●</span></div>
+          <!-- Đổi GIF trong config.js: heroGifUrl -->
+          <img id="heroGif" src="assets/cosplay-blonde.webp" alt="Ảnh cosplay Marin của Chie" fetchpriority="high">
+          <div class="frame-bottom"><span>✳ my favorite universe</span><span>01 / ∞</span></div>
+        </div>
+        <div class="floating-note note-top"><span>✦</span> made of little moments</div>
+        <div class="floating-note note-bottom"><span class="note-heart">♥</span> just being me!</div>
+      </div>
+    </section>
+
+    <div class="marquee-band" aria-hidden="true"><div><!-- Thêm nội dung duy băng của bạn tại đây. --></div></div>
+
+    <section class="section container widgets-section" id="widgets" aria-label="Góc nhỏ của mình">
+      <div class="dashboard-grid">
+        <article class="widget clock-widget" aria-label="Đồng hồ giờ Việt Nam">
+          <div class="clock-orb" aria-hidden="true"></div>
+          <div class="widget-topline"><span>✦ &nbsp; soft mornings</span><span>VIETNAM TIME · GMT+7</span></div>
+          <div class="clock-wrap"><div id="clockTime" class="clock-number">--:--</div><div class="clock-meta"><span id="clockWeekday">...</span><span id="clockDate">...</span></div></div>
+          <div class="clock-bottom">somewhere, something beautiful is happening <span aria-hidden="true">✧</span></div>
+        </article>
+
+        <article class="widget status-widget" aria-labelledby="status-title">
+          <div class="widget-label"><span class="label-glyph">◈</span> a tiny status update</div>
+          <div class="status-content">
+            <img src="assets/cosplay-blonde.webp" alt="Avatar của Chie" class="status-avatar" loading="lazy">
+            <div><h3 id="status-title">Chie <span aria-hidden="true">✿</span></h3><p class="presence-line"><span id="presenceDot" class="presence-dot"></span><span id="presenceText">just vibing</span></p></div>
+          </div>
+          <p id="activityText" class="status-caption">probably listening to music or planning another cosplay...</p>
+          <div class="status-bottom">discord presence <span id="presenceInfo">· not connected</span></div>
+        </article>
+
+        <article class="widget mood-widget" aria-labelledby="mood-title">
+          <div class="mood-media">
+            <!-- Đổi GIF trong config.js: moodGifUrl -->
+            <img src="assets/cosplay-blue.webp" id="moodGif" alt="GIF biểu cảm và khoảnh khắc cosplay" loading="lazy">
+          </div>
+          <div class="mood-overlay"><span>☁️ MOOD OF THE DAY</span><h3 id="mood-title">in my blue era <span aria-hidden="true">✧</span></h3></div>
+        </article>
+
+        <article class="widget music-widget" aria-labelledby="music-title">
+          <div class="widget-label"><span class="label-glyph">♫</span> on repeat lately</div>
+          <div class="music-main"><div class="vinyl" aria-hidden="true"><span class="vinyl-center">♡</span></div><div class="music-info"><div class="music-kicker">MY SOUNDTRACK</div><h3 id="music-title">Obito & my<br>favorite tunes.</h3><p id="trackInfo">Âm nhạc cho những ngày mơ mộng.</p></div></div>
+          <div class="music-bottom"><div class="music-controls"><button id="prevTrack" type="button" class="icon-btn" aria-label="Bài trước" disabled>⏮</button><button id="playTrack" type="button" class="icon-btn play-btn" aria-label="Phát nhạc" disabled>▶</button><button id="nextTrack" type="button" class="icon-btn" aria-label="Bài tiếp theo" disabled>⏭</button></div><a id="artistLink" class="external-link" href="https://open.spotify.com/search/Obito" target="_blank" rel="noopener noreferrer">listen on spotify ↗</a></div>
+          <audio id="audioPlayer" preload="none"></audio>
+        </article>
+
+        <a class="widget link-widget social-facebook" data-social="facebook" href="#" aria-disabled="true"><span class="social-top"><span class="social-icon">f</span><span class="social-arrow">↗</span></span><span class="social-name">facebook</span><span class="social-caption">let's be friends!</span></a>
+        <a class="widget link-widget social-instagram" data-social="instagram" href="#" aria-disabled="true"><span class="social-top"><span class="social-icon">◎</span><span class="social-arrow">↗</span></span><span class="social-name">instagram</span><span class="social-caption">little life updates</span></a>
+        <a class="widget link-widget social-tiktok" data-social="tiktok" href="#" aria-disabled="true"><span class="social-top"><span class="social-icon">♪</span><span class="social-arrow">↗</span></span><span class="social-name">tiktok</span><span class="social-caption">cosplay & silly things</span></a>
+        <a class="widget link-widget social-discord" data-social="discord" href="#" aria-disabled="true"><span class="social-top"><span class="social-icon">✧</span><span class="social-arrow">↗</span></span><span class="social-name">discord</span><span class="social-caption">come say hi!</span></a>
+      </div>
+    </section>
+
+    <section class="section container gallery-section" id="cosplay" aria-labelledby="gallery-title">
+      <div class="section-heading"><div><span class="section-kicker">02 / MY LITTLE LOOKBOOK</span><h2 id="gallery-title">cosplay <em>diary</em><span class="heading-sparkle">✧</span></h2></div><p>different characters,<br>same little me ♡</p></div>
+      <div class="gallery-grid">
+        <button class="gallery-card" data-photo="0" type="button" aria-label="Xem ảnh cosplay Gwen ở kích thước lớn"><img src="assets/cosplay-blue.webp" alt="Chie cosplay Gwen với tóc xanh, trang phục xanh và tím" loading="lazy"><span class="gallery-shade"><strong>Gwen</strong><span>01 ✦ click to view</span></span></button>
+        <button class="gallery-card" data-photo="1" type="button" aria-label="Xem ảnh cosplay Marin ở kích thước lớn"><img src="assets/cosplay-blonde.webp" alt="Chie cosplay Marin với tóc vàng cùng hình nhân vật tham khảo" loading="lazy"><span class="gallery-shade"><strong>Marin</strong><span>02 ✦ click to view</span></span></button>
+        <div class="gallery-future"><span>✳</span><strong>more magic<br>coming soon</strong><p>new characters, new memories,<br>same love for cosplay</p><span class="future-heart">♡</span></div>
+      </div>
+    </section>
+
+    <section class="section container letters-section" id="letters" aria-labelledby="letters-title">
+      <div class="section-heading"><div><span class="section-kicker">03 / A NOTE FOR ME?</span><h2 id="letters-title">leave a little <em>letter</em><span class="heading-sparkle">♡</span></h2></div><p>say something sweet,<br>i'd love to hear it ✦</p></div>
+      <div class="letter-card widget">
+        <div class="letter-form-panel"><span class="letter-stamp">✉ &nbsp; ANONYMOUS MAILBOX</span><h3>dear Chie, <span>♡</span></h3><p>Gửi một lời nhắn nhỏ, một câu chuyện hay chỉ đơn giản là một lời chào.</p>
+          <form id="letterForm" novalidate>
+            <label class="sr-only" for="letterText">Tin nhắn ẩn danh</label>
+            <textarea id="letterText" name="message" maxlength="500" rows="5" placeholder="write something lovely here..." required></textarea>
+            <input type="text" name="_gotcha" id="honeypot" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <div class="form-bottom"><span id="letterCount">0 / 500</span><button id="sendLetter" class="btn btn-primary" type="submit">send my letter <span aria-hidden="true">↗</span></button></div>
+          </form>
+          <p id="letterStatus" class="form-status" role="status" aria-live="polite"></p>
+        </div>
+        <div class="letter-illustration" aria-hidden="true"><span class="letter-star letter-star-one">✧</span><div class="envelope"><div class="envelope-flap"></div><div class="envelope-heart">♥</div></div><span class="letter-star letter-star-two">✦</span><p>a tiny note<br>for a tiny universe</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer container"><span>✿ <strong id="footerName">chie</strong>.verse</span><span>made with love, stardust & pastel blue ♡</span><a href="#home">back to top ↑</a></footer>
+  <dialog id="photoDialog" class="photo-dialog" aria-label="Xem ảnh cosplay"><form method="dialog"><button class="dialog-close" aria-label="Đóng ảnh" type="submit">×</button></form><img id="dialogImage" alt=""><p id="dialogCaption"></p></dialog>
+</body>
+</html>
