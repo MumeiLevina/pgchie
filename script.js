@@ -108,54 +108,7 @@
     byId('presenceInfo').textContent = '· not connected';
   }
 
-  // Optional audio player. Disabled when playlist is empty.
-  const playlist = (Array.isArray(cfg.playlist) ? cfg.playlist : []).filter((song) => song && song.title && typeof song.src === 'string' && (/^\.?\/?[\w\-./%]+\.(mp3|ogg|wav)(\?.*)?$/i.test(song.src) || validWebUrl(song.src)));
-  const audio = byId('audioPlayer');
-  const prev = byId('prevTrack');
-  const play = byId('playTrack');
-  const next = byId('nextTrack');
-  const trackInfo = byId('trackInfo');
-  const artistLink = byId('artistLink');
-  if (validWebUrl(cfg.artistUrl)) artistLink.href = cfg.artistUrl;
-  let index = 0;
-  const updatePlaying = () => {
-    const playing = !audio.paused && !!audio.currentSrc;
-    play.textContent = playing ? '❚❚' : '▶';
-    play.setAttribute('aria-label', playing ? 'Tạm dừng nhạc' : 'Phát nhạc');
-    $('.vinyl').classList.toggle('playing', playing);
-  };
-  function loadSong() {
-    if (!playlist.length) return;
-    const song = playlist[index];
-    audio.src = song.src;
-    trackInfo.textContent = `${song.title} — ${song.artist || 'Unknown artist'}`;
-    audio.load();
-    updatePlaying();
-  }
-  if (playlist.length) {
-    [prev, play, next].forEach((button) => button.disabled = false);
-    loadSong();
-    play.addEventListener('click', async () => {
-      if (!audio.paused) { audio.pause(); return; }
-      try { await audio.play(); trackInfo.textContent = `${playlist[index].title} — ${playlist[index].artist || 'Unknown artist'}`; }
-      catch { trackInfo.textContent = 'Không phát được tệp nhạc. Kiểm tra URL hoặc quyền truy cập.'; }
-    });
-    function jump(direction) {
-      const wasPlaying = !audio.paused;
-      index = (index + direction + playlist.length) % playlist.length;
-      loadSong();
-      if (wasPlaying) audio.play().catch(() => { trackInfo.textContent = 'Không phát được bài nhạc này.'; });
-    }
-    prev.addEventListener('click', () => jump(-1));
-    next.addEventListener('click', () => jump(1));
-    audio.addEventListener('ended', () => jump(1));
-    audio.addEventListener('play', updatePlaying);
-    audio.addEventListener('pause', updatePlaying);
-    audio.addEventListener('error', () => { trackInfo.textContent = 'Không tải được nhạc. Vui lòng kiểm tra URL.'; updatePlaying(); });
-  } else {
-    trackInfo.textContent = 'Gắn link audio trong config.js để mở trình phát nhạc.';
-    play.title = 'Chưa có playlist';
-  }
+  // The shared native music engine lives in music.js.
 
   // Image gallery with native, accessible <dialog> lightbox.
   const photoData = [
@@ -184,37 +137,51 @@
   const status = byId('letterStatus');
   const submit = byId('sendLetter');
   const endpoint = String(cfg.anonymousFormEndpoint || '').trim();
-  message.addEventListener('input', () => { count.textContent = `${message.value.length} / 500`; });
+  let sending = false;
+  message.addEventListener('input', () => { count.textContent = `${message.value.length} / 500`; message.removeAttribute('aria-invalid'); });
   function report(text, type = 'error') {
     status.textContent = text;
     status.className = `form-status ${type}`;
   }
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
-    if (byId('honeypot').value) return;
+    if (sending) return;
+    if (byId('honeypot').value) { report('Không thể gửi biểu mẫu này.'); return; }
     const content = message.value.trim();
-    if (!content) { report('Bạn chưa viết gì cả nè ♡'); message.focus(); return; }
-    if (content.length > 500) { report('Tin nhắn vượt quá 500 ký tự.'); return; }
+    if (!content) { report('Bạn chưa viết gì cả nè ♡'); message.setAttribute('aria-invalid', 'true'); message.focus(); return; }
+    if (message.value.length > 500) { report('Tin nhắn vượt quá 500 ký tự.'); return; }
     if (!/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(endpoint)) {
-      report('', '');
+      report('Hộp thư chưa sẵn sàng gửi. Bạn giữ lại lời nhắn và quay lại sau nhé ✧');
       return;
     }
+    sending = true;
     submit.disabled = true;
+    message.readOnly = true;
+    form.setAttribute('aria-busy', 'true');
     submit.textContent = 'sending... ✧';
     report('Đang gửi lời nhắn...', '');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
     try {
       const response = await fetch(endpoint, {
+        signal: controller.signal,
         method: 'POST',
         headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: content, source: 'Chie Little Universe' })
+        body: JSON.stringify({ message: content, _gotcha: '', source: 'Chie Little Universe' })
       });
       if (!response.ok) throw new Error('Form submission failed');
+      const result = await response.json();
+      if (result.ok !== true || result.errors?.length) throw new Error('Formspree did not confirm delivery');
       message.value = '';
       count.textContent = '0 / 500';
-      report('Đã gửi tin nhắn thành công! Cảm ơn bạn rất nhiều ♡', 'success');
+      report('Thư của bạn đã được gửi đến Chie rồi! Cảm ơn bạn vì lời nhắn đáng yêu này ♡', 'success');
     } catch {
-      report('Chưa gửi được tin nhắn. Hãy thử lại sau nhé.');
+      report('Thư chưa gửi được. Bạn thử lại một chút nữa nhé ✧');
     } finally {
+      clearTimeout(timeout);
+      sending = false;
+      message.readOnly = false;
+      form.removeAttribute('aria-busy');
       submit.disabled = false;
       submit.innerHTML = 'send my letter <span aria-hidden="true">↗</span>';
     }

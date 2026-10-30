@@ -1,0 +1,12 @@
+# Create/sync this Blueprint only after review and an authorized merge to main.
+services:
+  - type: web
+    runtime: static
+    name: chie-little-universe
+    repo: https://github.com/MumeiLevina/pgchie
+    branch: main
+    buildCommand: echo "No build required"
+    staticPublishPath: .
+    envVars:
+      - key: SKIP_INSTALL_DEPS
+        value: "true"

@@ -22,9 +22,19 @@ window.SITE_CONFIG = {
   artistUrl: "https://open.spotify.com/search/Obito",
   // Chỉ dùng link bài nhạc bạn có quyền phát trên website. Không tải nhạc bản quyền trái phép.
   playlist: [
-    // { title: "Tên bài hát", artist: "Nghệ sĩ", src: "https://example.com/audio.mp3" }
+    // { id: "track-01", title: "Tên bài hát", artist: "Nghệ sĩ", src: "assets/music/song.mp3", cover: "assets/music/covers/cover.webp", accent: "#A9DDEB" }
   ],
+  // playlist ở trên là danh sách duy nhất. Không cần sửa logic trình phát.
+  music: {
+    enabled: true,
+    autoplay: false, // Luôn đợi bạn bấm phát; không tự mở tiếng khi tải lại trang.
+    defaultVolume: 0.65,
+    repeatMode: "all", // "off", "one", "all"
+    shuffle: false,
+    visualizer: true,
+    rememberPreferences: true
+  },
   // Formspree (https://formspree.io/) cung cấp endpoint dạng https://formspree.io/f/xxxxxxxx
-  // Để trống: chưa gửi tin nhắn và không hiển thị thông báo cấu hình trên giao diện.
+  // Để trống: giải thích chưa thể gửi; giữ nguyên thư nháp.
   anonymousFormEndpoint: ""
 };
