@@ -196,7 +196,7 @@
     if (!content) { report('Bạn chưa viết gì cả nè ♡'); message.focus(); return; }
     if (content.length > 500) { report('Tin nhắn vượt quá 500 ký tự.'); return; }
     if (!/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(endpoint)) {
-      report('Hộp thư chưa được kết nối. Chủ website cần điền anonymousFormEndpoint trong config.js.');
+      report('', '');
       return;
     }
     submit.disabled = true;

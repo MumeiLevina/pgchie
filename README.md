@@ -33,7 +33,7 @@ Dải duy băng đang để trống và giữ chiều cao. Để thêm nội dun
 - Social cards: thêm các URL trong `socials` để card mở link thật. Chưa gắn link sẽ không click được.
 - Discord: thêm **Discord User ID** vào `discordUserId`, đồng thời tham gia dịch vụ Lanyard (`https://lanyard.rest/`). Trạng thái là tùy chọn; nếu chưa có ID thì không hiển thị trạng thái online giả.
 - Nhạc: thêm các bài vào mảng `playlist` cùng URL âm thanh mà bạn có quyền phát. Khi chưa có nhạc, nút điều khiển sẽ bị vô hiệu hóa. Link Spotify dẫn tới trang tìm kiếm Obito (có thể thay bằng link playlist chính xác).
-- Tin nhắn ẩn danh: thêm endpoint **Formspree** vào `anonymousFormEndpoint`. Khi chưa cấu hình sẽ báo rõ chưa gửi, không giả vờ thành công. Không cần nhúng mật khẩu quản trị vào front-end.
+- Tin nhắn ẩn danh: thêm endpoint **Formspree** vào `anonymousFormEndpoint`. Khi chưa cấu hình, nút gửi không gửi dữ liệu và không hiển thị thông báo cấu hình. Nội dung đã nhập được giữ nguyên. Không cần nhúng mật khẩu quản trị vào front-end.
 
 Ví dụ thêm nhạc tự sở hữu/quyền phát:
 

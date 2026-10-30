@@ -25,6 +25,6 @@ window.SITE_CONFIG = {
     // { title: "Tên bài hát", artist: "Nghệ sĩ", src: "https://example.com/audio.mp3" }
   ],
   // Formspree (https://formspree.io/) cung cấp endpoint dạng https://formspree.io/f/xxxxxxxx
-  // Để trống: website sẽ thông báo chưa cấu hình và KHÔNG giả vờ đã gửi.
+  // Để trống: chưa gửi tin nhắn và không hiển thị thông báo cấu hình trên giao diện.
   anonymousFormEndpoint: ""
 };
