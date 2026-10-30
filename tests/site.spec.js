@@ -29,7 +29,7 @@ const tracks = [0, 1, 2].map(i => ({ id: `t${i}`, title: `Daydream ${i + 1}`, ar
 async function boot(page, overrides = {}) {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.route('**/config.js', route => route.fulfill({contentType:'text/javascript', body: `${configSource}\nObject.assign(window.SITE_CONFIG, ${JSON.stringify({playlist:[],...overrides})});`}));
+  await page.route('**/config.js', route => route.fulfill({contentType:'text/javascript', body: `${configSource}\nObject.assign(window.SITE_CONFIG, ${JSON.stringify({playlist:[],socials:{},...overrides})});`}));
   await page.route('**/__test/*.wav', route => serveAudio(route,signal,'audio/wav'));
   // Avoid external font availability affecting deterministic interaction checks.
   await page.route('https://fonts.googleapis.com/**', route => route.fulfill({contentType:'text/css',body:''}));
