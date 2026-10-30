@@ -47,6 +47,7 @@
   let bag = [];
   let opener = null;
   let miniDismissed = false;
+  let miniForced = false;
   let hasStarted = false;
   let widgetVisible = true;
   let mailboxVisible = false;
@@ -64,7 +65,7 @@
     $('playerStatus').textContent = message;
   };
   function updateMini() {
-    $('musicMini').hidden = !tracks.length || miniDismissed || widgetVisible || mailboxVisible || dialog.open || !hasStarted;
+    $('musicMini').hidden = !tracks.length || miniDismissed || (widgetVisible && !miniForced) || mailboxVisible || dialog.open || (!hasStarted && !miniForced);
   }
   function renderState() {
     const active = playing();
@@ -250,6 +251,7 @@
   }
   function openPlayer(button) {
     opener = button;
+    miniForced = false;
     dialog.showModal();
     document.body.classList.add('music-dialog-open');
     updateMini(); visualize();
@@ -258,7 +260,8 @@
     play: () => requested || playing() ? pause() : play(),
     previous: () => advance(-1), next: () => advance(1),
     expand: openPlayer, close: () => dialog.close(),
-    dismiss: () => { miniDismissed = true; updateMini(); },
+    minimize: () => { miniForced = true; miniDismissed = false; dialog.close(); },
+    dismiss: () => { miniDismissed = true; miniForced = false; updateMini(); },
     shuffle: () => { shuffle = !shuffle; bag = []; history = []; if (shuffle) shuffledNextAndRestore(); renderModes(); persist(); },
     repeat: () => { repeat = modes[(modes.indexOf(repeat) + 1) % modes.length]; renderModes(); persist(); },
     mute: () => { const unmute = audio.muted || audio.volume === 0; if (audio.volume === 0) audio.volume = 0.65; audio.muted = !unmute; }
@@ -269,7 +272,8 @@
   dialog.addEventListener('close', () => {
     document.body.classList.remove('music-dialog-open');
     updateMini();
-    if (opener?.isConnected && !opener.closest('[hidden]')) opener.focus();
+    if (miniForced && !$('musicMini').hidden) $('musicMini').querySelector('[data-music="expand"]').focus({ preventScroll: true });
+    else if (opener?.isConnected && !opener.closest('[hidden]')) opener.focus();
     else document.querySelector('.music-expand').focus();
     visualize();
   });

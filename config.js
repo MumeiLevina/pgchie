@@ -22,7 +22,11 @@ window.SITE_CONFIG = {
   artistUrl: "https://open.spotify.com/search/Obito",
   // Chỉ dùng link bài nhạc bạn có quyền phát trên website. Không tải nhạc bản quyền trái phép.
   playlist: [
-    // { id: "track-01", title: "Tên bài hát", artist: "Nghệ sĩ", src: "assets/music/song.mp3", cover: "assets/music/covers/cover.webp", accent: "#A9DDEB" }
+    { id: "its-you", title: "It's You", artist: "Ali Gatie", src: "assets/music/Ali Gatie - It's You (Official Lyrics Video) - Ali Gatie.mp3" },
+    { id: "baby", title: "Baby", artist: "MCK ft. marzuz", src: "assets/music/Baby - MCK (ft. marzuz) - MCK __ Nger.mp3" },
+    { id: "nguyen-van-muoi", title: "NGUYỄN VĂN MƯỜI", artist: "MCK", src: "assets/music/NGUYỄN VĂN MƯỜI - MCK (OFFICIAL MUSIC VIDEO) - MCK __ Nger.mp3" },
+    { id: "sai-gon-oi", title: "Sài Gòn ơi", artist: "Obito", src: "assets/music/Obito - Sài Gòn ơi - Obito Official.mp3" },
+    { id: "doi-khi", title: "đôi khi", artist: "Obito", src: "assets/music/đôi khi - Obito Official.mp3" }
   ],
   // playlist ở trên là danh sách duy nhất. Không cần sửa logic trình phát.
   music: {

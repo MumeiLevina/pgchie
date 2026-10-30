@@ -29,7 +29,7 @@ const tracks = [0, 1, 2].map(i => ({ id: `t${i}`, title: `Daydream ${i + 1}`, ar
 async function boot(page, overrides = {}) {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.route('**/config.js', route => route.fulfill({contentType:'text/javascript', body: `${configSource}\nObject.assign(window.SITE_CONFIG, ${JSON.stringify(overrides)});`}));
+  await page.route('**/config.js', route => route.fulfill({contentType:'text/javascript', body: `${configSource}\nObject.assign(window.SITE_CONFIG, ${JSON.stringify({playlist:[],...overrides})});`}));
   await page.route('**/__test/*.wav', route => serveAudio(route,signal,'audio/wav'));
   // Avoid external font availability affecting deterministic interaction checks.
   await page.route('https://fonts.googleapis.com/**', route => route.fulfill({contentType:'text/css',body:''}));
@@ -314,6 +314,21 @@ test('mini player shares state, hides at mailbox and can be dismissed', async ({
   await expect(page.locator('#musicMini')).toBeVisible();
   await page.locator('[data-music="dismiss"]').click();
   await expect(page.locator('#musicMini')).toBeHidden();
+});
+
+test('minimize keeps playback running and opens a focused mini player beside the card', async ({page}) => {
+  await boot(page,{playlist:tracks});
+  await start(page);
+  await page.locator('.music-expand').click();
+  await page.locator('[data-music="minimize"]').click();
+  await expect(page.locator('#musicDialog')).not.toBeVisible();
+  await expect(page.locator('#musicMini')).toBeVisible();
+  await expect(page.locator('#musicMini [data-music="expand"]')).toBeFocused();
+  expect((await audioState(page)).paused).toBe(false);
+  await page.locator('#musicMini [data-music="expand"]').click();
+  await expect(page.locator('#musicDialog')).toBeVisible();
+  await expect(page.locator('#musicMini')).toBeHidden();
+  expect((await audioState(page)).paused).toBe(false);
 });
 
 test('native dialog keyboard focus, tab containment, Escape and focused Space/Enter', async ({page}) => {

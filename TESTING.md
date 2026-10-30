@@ -1,5 +1,22 @@
 # Verification record — 2026-10-31 (Asia/Saigon)
 
+## Follow-up: local music and minimize button
+
+Added the five owner-supplied MP3 paths to `config.js` and a “−” button beside the
+expanded player's close button. Minimizing shows the shared mini controller even
+when the dashboard card is visible, preserves playback and moves keyboard focus
+to the mini player's expand control. The mini player still hides near the mailbox.
+
+`npm test`: **29 passed, 0 failed, 0 skipped in 21.6 seconds** in Microsoft Edge.
+An additional browser smoke check used the actual local MP3s without intercepted
+audio requests: all five decoded, reported duration and advanced playback time;
+minimizing preserved playback; no page errors occurred. Durations were approximately
+214.47s, 173.79s, 336.82s, 188.40s and 148.95s in playlist order.
+This supersedes the initial report's “owner music unverified” limitation for local
+decoding/playback only. Physical speaker listening and public hosting remain unverified.
+The supplied MP3 files remain local and untracked; only source/configuration changes
+are included in the follow-up commit.
+
 ## Audit and scope
 
 The starting checkout was clean on `main`, at `a8b2f08` (ocean background brightness).
