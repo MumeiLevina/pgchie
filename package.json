@@ -1,6 +1,7 @@
 {
   "name": "chie-little-universe",
   "private": true,
-  "scripts": { "test": "playwright test" },
+  "workspaces": ["server"],
+  "scripts": { "test": "playwright test", "test:server": "npm test --workspace server", "start:admin": "npm start --workspace server", "build:public": "node scripts/build-public.js" },
   "devDependencies": { "@playwright/test": "1.64.1" }
 }

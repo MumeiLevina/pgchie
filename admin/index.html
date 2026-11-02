@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Hộp thư riêng · Chie</title><link rel="stylesheet" href="/assets/admin.css"><script src="/assets/admin.js" defer></script></head>
+<body>
+<a class="skip-link" href="#main">Đến nội dung</a>
+<svg class="icon-defs" aria-hidden="true"><defs>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></symbol>
+<symbol id="i-dot" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.5 5.5a5 5 0 0 0-7 0L12 7l-1.5-1.5a5 5 0 0 0-7 7L12 21l8.5-8.5a5 5 0 0 0 0-7Z"/></symbol>
+<symbol id="i-archive" viewBox="0 0 24 24"><path d="M4 8v12h16V8M3 3h18v5H3zM9 12h6"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="8" cy="6" r="2"/><circle cx="16" cy="12" r="2"/><circle cx="10" cy="18" r="2"/></symbol>
+<symbol id="i-exit" viewBox="0 0 24 24"><path d="M10 4H4v16h6M10 12h11m-4-4 4 4-4 4"/></symbol>
+</defs></svg>
+<div class="app-shell">
+  <aside class="sidebar"><a class="brand" href="/admin/"><span class="brand-mark" aria-hidden="true">c<span>✧</span></span><span>chie<span class="brand-caption">PRIVATE MAILBOX</span></span></a>
+    <span class="nav-label">GÓC RIÊNG CỦA BẠN</span>
+    <nav aria-label="Hộp thư quản trị">
+      <button data-view="overview" aria-current="page"><svg><use href="#i-grid"/></svg>Tổng quan</button>
+      <button data-view="inbox"><svg><use href="#i-mail"/></svg>Hộp thư</button>
+      <button data-view="unread"><svg><use href="#i-dot"/></svg>Chưa đọc <span id="navUnread" class="nav-count">0</span></button>
+      <button data-view="favorites"><svg><use href="#i-heart"/></svg>Yêu thích</button>
+      <button data-view="archived"><svg><use href="#i-archive"/></svg>Lưu trữ</button>
+      <button data-view="settings" class="settings-nav"><svg><use href="#i-settings"/></svg>Cài đặt</button>
+    </nav>
+    <div class="sidebar-note"><span aria-hidden="true">✧</span><p>Mỗi lời nhắn là một<br>điều nhỏ đáng giữ gìn.</p><span class="note-rule"></span><small>JUST BETWEEN US ♡</small></div>
+    <div class="account"><span class="avatar" aria-hidden="true">C</span><div><strong>Chie</strong><small>Không gian quản trị</small></div><button id="logout" class="icon-button" aria-label="Đăng xuất"><svg><use href="#i-exit"/></svg></button></div>
+  </aside>
+  <main id="main" class="main" tabindex="-1">
+    <header class="topbar"><span>CHIE'S LITTLE UNIVERSE <span class="topbar-separator">/</span> MAILBOX</span><span class="private-badge">● Không gian riêng tư</span></header>
+    <div class="page-heading"><div><span class="eyebrow">YOUR WORDS, SAFELY KEPT</span><h1 id="viewTitle">Một chút yêu thương ♡</h1><p id="viewSubtitle">Những lời nhắn gửi đến góc nhỏ của Chie.</p></div><button id="sync" class="primary">Đồng bộ thư <span aria-hidden="true">↻</span></button></div>
+    <div id="integrationBanner" class="integration-banner" role="status"><span class="status-dot"></span><div><strong id="integrationTitle">Đang kiểm tra kết nối…</strong><p id="integrationText">Đang đọc trạng thái hộp thư.</p></div><button id="openSettings" class="text-button">Chi tiết ↗</button></div>
+    <p id="notice" class="notice" role="status" aria-live="polite"></p>
+    <section id="overview" aria-label="Thống kê hộp thư"><div class="stats"><article class="stat"><span>Tổng lời nhắn <svg><use href="#i-mail"/></svg></span><strong id="total">—</strong><small>Bản sao trong hộp thư riêng</small></article><article class="stat"><span>Chưa mở đọc <svg><use href="#i-dot"/></svg></span><strong id="unread">—</strong><small>Chờ bạn ghé qua</small></article><article class="stat"><span>Đã yêu thích <svg><use href="#i-heart"/></svg></span><strong id="favorites">—</strong><small>Những điều muốn giữ lại</small></article><article class="stat"><span>7 ngày gần đây <svg><use href="#i-archive"/></svg></span><strong id="recent">—</strong><small>Theo thời gian nhận thư</small></article></div></section>
+    <section id="mailSection" class="mail-section" aria-label="Danh sách và nội dung thư">
+      <div class="section-title"><h2 id="listTitle">Lời nhắn mới nhất</h2><span id="resultCount" class="muted"></span></div>
+      <div class="mailbox"><div class="mail-list-pane"><div class="toolbar"><label class="search"><span aria-hidden="true">⌕</span><input type="search" id="search" placeholder="Tìm trong những lời nhắn…" maxlength="200" aria-label="Tìm lời nhắn"></label><select id="sort" aria-label="Sắp xếp"><option value="newest">Mới nhất</option><option value="oldest">Cũ nhất</option></select></div><div id="messageList" class="message-list" aria-busy="true"></div><div class="pagination"><button id="previous" class="quiet" aria-label="Trang trước">←</button><span id="pageLabel">Trang 1</span><button id="next" class="quiet" aria-label="Trang sau">→</button></div></div><section id="detail" class="detail" aria-label="Nội dung thư"><div class="detail-placeholder"><div class="empty-envelope" aria-hidden="true">♡</div><h3>Một lời nhắn, một khoảng lặng.</h3><p>Chọn một lá thư để đọc ở đây.</p><span class="eyebrow">SENT WITH A LITTLE LOVE</span></div></section></div>
+    </section>
+    <section id="settings" class="settings-panel" hidden><span class="eyebrow">A SAFE LITTLE SPACE</span><h2>Kết nối hộp thư</h2><dl><div><dt>Dịch vụ nhận thư</dt><dd>Formspree · <span id="formId"></span></dd></div><div><dt>Lần đồng bộ gần nhất</dt><dd id="lastSync">Chưa đồng bộ</dd></div><div><dt>Phạm vi thao tác</dt><dd>Bản sao trong dashboard</dd></div></dl><h3>Để đọc thư thật</h3><p>Chủ tài khoản cần xác nhận gói Formspree có HTTP API, bật HTTP API cho form và đặt read-only API key trong biến môi trường của backend. Xem hướng dẫn <code>docs/admin-dashboard-setup.md</code> trong repo. Không dán khóa vào website công khai.</p><h3>Thư của bạn được giữ như thế nào?</h3><p>Trạng thái đã đọc, yêu thích và lưu trữ được lưu trong cơ sở dữ liệu riêng. Xóa ở đây chỉ xóa nội dung bản sao; thư gốc vẫn ở Formspree. Dấu nhận diện không chứa nội dung được giữ để tránh nhập lại thư đã xóa.</p><p>Đồng bộ lấy tối đa 100 thư mỗi lần. Nếu còn lịch sử, tiếp tục đồng bộ để nhập trang kế tiếp. Kết nối chỉ được xác minh sau khi yêu cầu đọc thật thành công.</p></section>
+    <footer class="app-footer"><span>made for chie, with a little care ♡</span><span>PRIVATE MAILBOX · <span id="footerStatus">ĐANG KIỂM TRA</span></span></footer>
+  </main>
+</div>
+<dialog id="deleteDialog"><form method="dialog"><span class="pill">BẢN SAO TRONG DASHBOARD</span><h2>Xóa lời nhắn này?</h2><p>Nội dung bản sao sẽ bị xóa khỏi hộp thư riêng.<br>Thư gốc trên Formspree vẫn được giữ lại.</p><div class="dialog-actions"><button value="cancel" class="quiet">Giữ lại</button><button type="button" id="confirmDelete" class="danger">Xóa bản sao</button></div></form></dialog>
+</body></html>

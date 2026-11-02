@@ -391,6 +391,23 @@ for (const scenario of ['network', 'rejection', 'unconfirmed', 'success']) {
   });
 }
 
+for (const scenario of ['success', 'unconfirmed', 'rate-limited']) {
+  test(`owner Formspree endpoint ${scenario} preserves delivery feedback (mocked; no live letter)`, async ({page}) => {
+    const endpoint = /anonymousFormEndpoint:\s*"([^"]*)"/.exec(configSource)[1];
+    expect(endpoint).toBe('https://formspree.io/f/mzeekake');
+    let posts = 0;
+    await page.route(endpoint, route => {
+      posts++; expect(route.request().postDataJSON()).toMatchObject({ message: 'Formspree regression fixture', _gotcha: '', source: 'Chie Little Universe' });
+      return route.fulfill({ status: scenario === 'rate-limited' ? 429 : 200, contentType: 'application/json', body: JSON.stringify(scenario === 'success' ? { ok: true } : {}) });
+    });
+    await boot(page, { anonymousFormEndpoint: endpoint });
+    await page.locator('#letterText').fill('Formspree regression fixture'); await page.locator('#sendLetter').click();
+    await expect(page.locator('#sendLetter')).toBeEnabled(); expect(posts).toBe(1);
+    await expect(page.locator('#letterText')).toHaveValue(scenario === 'success' ? '' : 'Formspree regression fixture');
+    await expect(page.locator('#letterStatus')).toContainText(scenario === 'success' ? 'đã được gửi' : 'chưa gửi được');
+  });
+}
+
 for (const width of [375,390,768,1024,1440]) {
   test(`responsive ${width}px: no horizontal overflow, controls reachable and screenshots`, async ({page}, testInfo) => {
     await page.setViewportSize({width,height:900});

@@ -1,5 +1,25 @@
 # Verification record — 2026-10-31 (Asia/Saigon)
 
+## Private mailbox — 2026-11-02 (Asia/Saigon)
+
+Verified locally: **13/13 backend tests passed**, **37/37 Playwright tests passed** (including native MP3 playback), public allowlist build passed, `npm audit --omit=dev` reported zero vulnerabilities, and `git diff --check` passed. Login and dashboard screenshots were visually inspected at desktop and mobile sizes. These checks do not verify real Formspree delivery or a Render deployment.
+
+Run from repo root:
+
+```text
+npm ci
+npm run test:server
+npm test
+npm run build:public
+python tests/test_letter_api.py --dry-run
+```
+
+Backend tests use PGlite, a PostgreSQL WASM engine, with real SQL transactions/constraints and the production repository/session adapter. Disk reopen tests verify message/metadata/session persistence. This does not verify network PostgreSQL connectivity or Render runtime; repeat the owner deployment checklist with the real database. No Docker database was available in this environment.
+
+Playwright uses the existing public server on 8001 plus an isolated loopback-only fixture backend on 8002. Fixtures are labeled `[TEST FIXTURE]`, never provider data. Existing public music/gallery/form/layout tests remain; admin tests cover auth, CSRF-backed metadata actions, XSS text rendering, deletion confirmation, search/pagination/sort, empty/error/retry/expiry states, keyboard, reduced motion and 375/768/1440px screenshots. The fixture password and session secret in test files must never be used in production.
+
+Provider unit tests stub documented HTTP responses. No webhook receiver is implemented, so webhook signature/delivery tests are not applicable. No mocked result establishes real Formspree delivery. The endpoint OPTIONS preflight passed; the live POST and authenticated retrieval E2E were not run. `test_letter_api.py` without `--dry-run` sends a real email and is intentionally excluded from automation. Owner E2E steps: [setup guide](docs/admin-dashboard-setup.md).
+
 ## Follow-up: local music and minimize button
 
 Pre-merge CI caught two follow-up regressions after the ribbon/social updates:
