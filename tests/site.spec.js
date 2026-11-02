@@ -29,7 +29,7 @@ const tracks = [0, 1, 2].map(i => ({ id: `t${i}`, title: `Daydream ${i + 1}`, ar
 async function boot(page, overrides = {}) {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.route('**/config.js', route => route.fulfill({contentType:'text/javascript', body: `${configSource}\nObject.assign(window.SITE_CONFIG, ${JSON.stringify({playlist:[],socials:{},...overrides})});`}));
+  await page.route('**/config.js', route => route.fulfill({contentType:'text/javascript', body: `${configSource}\nObject.assign(window.SITE_CONFIG, ${JSON.stringify({playlist:[],socials:{},anonymousFormEndpoint:'',...overrides})});`}));
   await page.route('**/__test/*.wav', route => serveAudio(route,signal,'audio/wav'));
   // Avoid external font availability affecting deterministic interaction checks.
   await page.route('https://fonts.googleapis.com/**', route => route.fulfill({contentType:'text/css',body:''}));
@@ -371,13 +371,13 @@ for (const scenario of ['network', 'rejection', 'unconfirmed', 'success']) {
   test(`mailbox ${scenario}: sending state, one POST, exact feedback and draft policy (mocked)`, async ({page}) => {
     let posts=0, release;
     const pending = new Promise(resolve => {release=resolve;});
-    await page.route('https://formspree.io/f/testonly', async route => {
+    await page.route('https://getform.io/testonly', async route => {
       posts++; expect(route.request().postDataJSON()).toMatchObject({message:'hello Chie',_gotcha:''});
       await pending;
       if(scenario==='network') return route.abort('failed');
-      return route.fulfill({status:scenario==='rejection'?422:200,contentType:'application/json',body:JSON.stringify(scenario==='success'?{ok:true}:scenario==='unconfirmed'?{}:{errors:[{message:'rejected'}]})});
+      return route.fulfill({status:scenario==='rejection'?422:200,contentType:'application/json',body:JSON.stringify(scenario==='success'?{success:true}:scenario==='unconfirmed'?{}:{success:false,error:'rejected',code:422})});
     });
-    await boot(page,{anonymousFormEndpoint:'https://formspree.io/f/testonly'});
+    await boot(page,{anonymousFormEndpoint:'https://getform.io/testonly'});
     await page.locator('#letterText').fill('hello Chie');
     await page.locator('#sendLetter').click();
     await expect(page.locator('#sendLetter')).toBeDisabled();

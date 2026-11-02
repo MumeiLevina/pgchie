@@ -38,7 +38,12 @@ window.SITE_CONFIG = {
     visualizer: true,
     rememberPreferences: true
   },
-  // Formspree (https://formspree.io/) cung cấp endpoint dạng https://formspree.io/f/xxxxxxxx
-  // Để trống: giải thích chưa thể gửi; giữ nguyên thư nháp.
-  anonymousFormEndpoint: ""
+  // Nhận thư ẩn danh qua Formspree HOẶC Getform (đã đổi tên thành Forminit).
+  // Dán MỘT trong các endpoint vào đây (code nhận cả hai):
+  //   Formspree:  https://formspree.io/f/<id>
+  //   Getform:    https://getform.io/<id>
+  //   Forminit:   https://forminit.com/f/<id>
+  // Để trống "": thông báo hộp thư chưa sẵn sàng, giữ lại thư nháp.
+  // Không đặt token/API key bí mật vào đây (file công khai).
+  anonymousFormEndpoint: "https://formspree.io/f/mkyqpqdv"
 };

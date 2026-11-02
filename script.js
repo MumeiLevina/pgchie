@@ -130,7 +130,9 @@
     if (event.target === photoDialog) photoDialog.close();
   });
 
-  // Anonymous mailbox. Real POST only when Formspree is configured.
+  // Anonymous mailbox. Real POST only when a known form backend is configured.
+  // Accepts Formspree (https://formspree.io/f/<id>) and Getform/Forminit
+  // (https://getform.io/<id> or https://forminit.com/f/<id>); both send CORS *.
   const form = byId('letterForm');
   const message = byId('letterText');
   const count = byId('letterCount');
@@ -150,7 +152,9 @@
     const content = message.value.trim();
     if (!content) { report('Bạn chưa viết gì cả nè ♡'); message.setAttribute('aria-invalid', 'true'); message.focus(); return; }
     if (message.value.length > 500) { report('Tin nhắn vượt quá 500 ký tự.'); return; }
-    if (!/^https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$/.test(endpoint)) {
+    // Accept Formspree, Getform or Forminit endpoints; anything else is not configured.
+    const providerOk = /^(https:\/\/formspree\.io\/f\/[A-Za-z0-9]+$|https:\/\/(?:getform\.io|forminit\.(?:com|io))\/(?:f\/)?[A-Za-z0-9]{4,}$)/.test(endpoint);
+    if (!providerOk) {
       report('Hộp thư chưa sẵn sàng gửi. Bạn giữ lại lời nhắn và quay lại sau nhé ✧');
       return;
     }
@@ -171,7 +175,13 @@
       });
       if (!response.ok) throw new Error('Form submission failed');
       const result = await response.json();
-      if (result.ok !== true || result.errors?.length) throw new Error('Formspree did not confirm delivery');
+      // Accept Getform/Forminit ({success:true} or legacy {"message":"OK"})
+      // as well as Formspree ({ok:true}); only clear the draft on a real confirmation.
+      const explicitSuccess = result.success === true || result.ok === true ||
+        (typeof result.message === 'string' && /^ok$/i.test(result.message));
+      const explicitError = result.success === false || result.ok === false ||
+        (Array.isArray(result.errors) && result.errors.length > 0);
+      if (explicitError || !explicitSuccess) throw new Error('Form did not confirm delivery');
       message.value = '';
       count.textContent = '0 / 500';
       report('Thư của bạn đã được gửi đến Chie rồi! Cảm ơn bạn vì lời nhắn đáng yêu này ♡', 'success');

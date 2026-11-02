@@ -82,13 +82,17 @@ Chỉ tải bài đã chọn khi cần nghe; không tải metadata của toàn b
 
 ## Hộp thư ẩn danh thật
 
-1. Tạo biểu mẫu tại `https://formspree.io/` bằng tài khoản của chủ website.
-2. Sao chép endpoint `https://formspree.io/f/...` vào `anonymousFormEndpoint`.
-3. Thử gửi một tin từ website đã xuất bản và kiểm tra **Inbox riêng tư** trong tài khoản Formspree. Chỉ kiểm tra giao diện thành công chưa đủ chứng minh thư đã vào hộp thư.
-4. Bật và kiểm tra các thiết lập chống spam trong Formspree. Website có honeypot `_gotcha`, giới hạn 500 ký tự, chặn gửi lặp khi đang xử lý và thời gian chờ 15 giây. Không hỏi tên/email, không cần tài khoản người gửi và không công khai nội dung thư.
-5. Trong **Restrict to Domain**, giới hạn đúng tên miền website thật; thêm miền xem trước nếu cần thử ở đó. Đừng giới hạn sai miền khiến request hợp lệ bị chặn. Xem [chống spam](https://help.formspree.io/articles/troubleshooting/how-to-prevent-spam/) và [honeypot](https://help.formspree.io/articles/building-your-form/honeypot-spam-filtering/). Nếu bật CAPTCHA/challenge yêu cầu tương tác, phải thử luồng AJAX thực tế và cấu hình theo hướng dẫn Formspree; honeypot không thay thế mọi biện pháp chống spam.
+Website gửi thư qua **Getform** — dịch vụ đã đổi tên thành **Forminit** nhưng vẫn dùng chung tên miền `getform.io` (cổng chính `getform.io`, cùng lúc cũng có `forminit.com`/`forminit.io`). Cả hai đều cho phép gửi từ trình duyệt, không cần server.
 
-Lỗi mạng, endpoint chưa có/sai, từ chối hoặc phản hồi chưa xác nhận thành công đều giữ nguyên nháp trong ô nhập. Chỉ xóa sau khi Formspree trả về JSON `ok: true`. Nháp chỉ nằm trong ô nhập hiện tại: tải lại/đóng trang sẽ mất nháp, nên sao chép lời nhắn nếu cần quay lại sau. Khi gửi bị timeout, Formspree có thể đã nhận request; kiểm tra hộp thư trước khi thử lại nếu lo trùng thư.
+1. Tạo tài khoản và form tại `https://getform.io/` (hoặc `https://forminit.com/`) bằng tài khoản của chủ website.
+2. Sao chép endpoint — dạng `https://getform.io/<id>` hoặc `https://forminit.com/f/<id>` — vào `anonymousFormEndpoint`.
+3. Thử gửi một tin từ website đã xuất bản và kiểm tra thư đến **dashboard/email** của Getform. Chỉ thấy giao diện thành công trên web chưa đủ chứng minh thư đã vào hộp thư.
+4. Bật và kiểm tra các thiết lập chống spam trong Getform (turn off auto-replies, domain allowlist, honeypot). Website có sẵn honeypot `_gotcha`, giới hạn 500 ký tự, chặn gửi lặp khi đang xử lý và thời gian chờ 15 giây. Không hỏi tên/email, không cần tài khoản người gửi và không công khai nội dung thư.
+5. Nếu bật CAPTCHA/challenge yêu cầu tương tác, phải thử luồng AJAX thực tế và cấu hình theo hướng dẫn Getform; honeypot không thay thế mọi biện pháp chống spam.
+
+Lỗi mạng, endpoint chưa có/sai, từ chối hoặc phản hồi chưa xác nhận thành công đều giữ nguyên nháp trong ô nhập. Chỉ xóa sau khi Getform trả về JSON `success: true`. Nháp chỉ nằm trong ô nhập hiện tại: tải lại/đóng trang sẽ mất nháp, nên sao chép lời nhắn nếu cần quay lại sau. Khi gửi bị timeout, Getform có thể đã nhận request; kiểm tra hộp thư trước khi thử lại nếu lo trùng thư.
+
+**Ghi chú:** Form tạo qua dashboard của Forminit có thể yêu cầu thêm thuộc tính người gửi (sender). Endpoint dạng raw `/f/<id>` vẫn nhận JSON phẳng ẩn danh như code hiện gửi; nếu bị từ chối do thiếu sender, tạo form dạng JSON/raw hoặc bỏ qua bắt buộc sender.
 
 **Cẩn thận về quyền riêng tư:** Đừng đưa token, mật khẩu, API key bí mật vào `config.js`, vì file có thể được xem công khai trên GitHub Pages. Với tin nhắn ẩn danh, không nên cam kết ẩn danh tuyệt đối do bên cung cấp form có thể xử lý dữ liệu kết nối.
 
