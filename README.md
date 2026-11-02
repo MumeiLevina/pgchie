@@ -2,6 +2,10 @@
 
 Personal website HTML/CSS/JavaScript thuần — xanh pastel, responsive, không cần npm hoặc build tool.
 
+Hộp thư công khai dùng Formspree `https://formspree.io/f/mzeekake`. Dashboard riêng chạy ở backend Node/PostgreSQL độc lập. Xem [hướng dẫn quản trị](docs/admin-dashboard-setup.md), [audit](docs/admin-dashboard-audit.md) và [khả năng Formspree](docs/formspree-capability-report.md). Mặc định chưa bật đọc thư thật; cần owner cấu hình HTTP API và kiểm tra đầu-cuối.
+
+**Khi triển khai:** chạy `npm run build:public` và chỉ công khai `dist/`. Không dùng thư mục gốc `.` làm static publish path sau khi thêm backend. Dashboard ở `/admin/` trên origin riêng có đăng nhập; bản static không chứa trang quản trị.
+
 ## Chạy thử
 
 1. Mở thư mục bằng VS Code.
@@ -120,20 +124,20 @@ Chỉ merge vào `main` sau khi chủ website đồng ý. Merge có thể kích 
 
 ## Xuất bản trên Render Static Site
 
-Cấu hình đã đối chiếu [Render Static Sites](https://render.com/docs/static-sites) và [Blueprint specification](https://render.com/docs/blueprint-spec). Đây vẫn là website tĩnh, không cần Node.js server. `package.json` chỉ dành cho kiểm thử phát triển.
+Cấu hình đã đối chiếu [Render Static Sites](https://render.com/docs/static-sites) và [Blueprint specification](https://render.com/docs/blueprint-spec). Website công khai vẫn là static site; dashboard quản trị dùng backend Node.js riêng. `package.json` có lệnh kiểm thử, đóng gói public và chạy backend.
 
 Sau khi review và được phép merge nhánh tính năng vào `main`:
 
 1. Đăng nhập [Render Dashboard](https://dashboard.render.com/), chọn **New → Static Site**.
 2. Kết nối GitHub và chọn **MumeiLevina/pgchie**.
 3. Chọn branch **`main`**, để **Root Directory** trống.
-4. **Build Command:** `echo "No build required"`.
-5. **Publish Directory:** `.` (một dấu chấm).
+4. **Build Command:** `node scripts/build-public.js`.
+5. **Publish Directory:** `dist` (chỉ các tài nguyên công khai).
 6. Thêm biến môi trường **`SKIP_INSTALL_DEPS=true`** để bỏ qua cài các gói kiểm thử.
 7. Kiểm tra thiết lập rồi chọn **Create Static Site** khi đã sẵn sàng xuất bản. Render sẽ cấp URL thật; không cần đoán tên miền.
 8. Mở URL HTTPS Render cấp, kiểm tra ảnh/GIF, nhạc tự thêm, thư gửi thử và Inbox. Kiểm tra chuyển từ HTTP sang HTTPS và không có tài nguyên HTTP bị chặn.
 
-Hoặc chọn **New → Blueprint**, kết nối repository và dùng `render.yaml` sau khi tệp đó đã ở `main`. Blueprint dùng `type: web` + `runtime: static`, không phải dịch vụ web có lệnh start. Không cần thêm quy tắc rewrite mọi URL về `index.html`: website không dùng router; thiếu MP3 phải trả lỗi thật.
+Hoặc dùng `render.yaml` sau khi review và merge vào `main`. Blueprint giữ static site và thêm backend quản trị cùng PostgreSQL riêng (có chi phí). Đọc [hướng dẫn quản trị](docs/admin-dashboard-setup.md) trước khi tạo hoặc đồng bộ Blueprint. Không rewrite mọi URL về `index.html`: website công khai không dùng router; thiếu MP3 phải trả lỗi thật.
 
 Đường dẫn ảnh/nhạc/CSS/JS đều tương đối, hỗ trợ cả Render ở gốc và GitHub Pages dưới `/pgchie/`. Render thường tự triển khai khi nhánh đã chọn cập nhật; xem lại Auto-Deploy trước khi merge các lần sau. Chưa tạo dịch vụ hoặc xác nhận deploy nghĩa là **chưa triển khai**. Không có URL production Render được hardcode trong dự án.
 

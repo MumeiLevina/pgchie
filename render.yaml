@@ -5,8 +5,50 @@ services:
     name: chie-little-universe
     repo: https://github.com/MumeiLevina/pgchie
     branch: main
-    buildCommand: echo "No build required"
-    staticPublishPath: .
+    autoDeployTrigger: off
+    buildCommand: node scripts/build-public.js
+    staticPublishPath: dist
     envVars:
       - key: SKIP_INSTALL_DEPS
         value: "true"
+      - key: NODE_VERSION
+        value: "24"
+
+  # Review costs and settings before creating these new resources.
+  - type: web
+    runtime: node
+    name: chie-private-mailbox
+    repo: https://github.com/MumeiLevina/pgchie
+    branch: main
+    autoDeployTrigger: off
+    plan: 0.5c-512mb
+    region: singapore
+    buildCommand: npm ci --omit=dev
+    startCommand: npm run start:admin
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_VERSION
+        value: "24"
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chie-mailbox-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_ORIGIN
+        sync: false
+      - key: INBOX_MODE
+        value: disabled
+      - key: FORMSPREE_FORM_ID
+        value: mzeekake
+      # Add FORMSPREE_API_TOKEN privately after verifying account API access.
+
+databases:
+  - name: chie-mailbox-db
+    region: singapore
+    plan: 0.1c-256mb
+    databaseName: chie_mailbox
+    user: chie_mailbox
+    ipAllowList: []

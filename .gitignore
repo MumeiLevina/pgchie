@@ -9,3 +9,8 @@ Desktop.ini
 node_modules/
 test-results/
 playwright-report/
+.env
+.env.*
+!.env.example
+dist/
+coverage/

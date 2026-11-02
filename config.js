@@ -45,5 +45,5 @@ window.SITE_CONFIG = {
   //   Forminit:   https://forminit.com/f/<id>
   // Để trống "": thông báo hộp thư chưa sẵn sàng, giữ lại thư nháp.
   // Không đặt token/API key bí mật vào đây (file công khai).
-  anonymousFormEndpoint: "https://formspree.io/f/mkyqpqdv"
+  anonymousFormEndpoint: "https://formspree.io/f/mzeekake"
 };
